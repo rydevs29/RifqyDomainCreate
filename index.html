@@ -3,535 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RifqyDomainCreate - Platform Domain & DNS Tercanggih</title>
+    <title>RifqyDomainCreate - Ultimate Domain Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4f46e5; /* Indigo */
-            --secondary: #0ea5e9; /* Sky Blue */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #0ea5e9;
             --dark: #0f172a;
             --darker: #020617;
-            --light: #f8fafc;
+            --light: #f1f5f9;
+            --white: #ffffff;
             --text: #334155;
             --success: #22c55e;
             --danger: #ef4444;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--light); color: var(--text); overflow-x: hidden; }
 
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            overflow-x: hidden;
+        /* --- UI COMPONENTS --- */
+        .btn {
+            padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; text-decoration: none; display: inline-block;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        .btn-outline:hover { background: var(--primary); color: white; }
 
-        /* --- NAVBAR RESPONSIVE --- */
+        /* --- NAVBAR --- */
         nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo i { color: var(--primary); }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-        }
-
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
-
-        .btn-action {
-            background: var(--dark);
-            color: white !important;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* Mobile Menu Button */
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 100%);
-            color: white;
-            padding: 160px 20px 100px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Search Box Complex */
-        .search-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .search-box {
-            background: white;
-            padding: 8px;
-            border-radius: 15px;
-            display: flex;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border: 4px solid rgba(255,255,255,0.1);
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            flex: 1;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            color: var(--dark);
-        }
-
-        .search-box button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .search-box button:hover { background: #4338ca; }
-
-        /* Search Result Animation */
-        #search-result {
-            margin-top: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            color: var(--dark);
-            display: none; /* Hidden by default */
-            text-align: left;
-            animation: slideDown 0.3s ease-out;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .domain-name { font-size: 1.5rem; font-weight: 800; }
-        .domain-status { font-weight: bold; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
-        .status-avail { background: #dcfce7; color: var(--success); }
-        .status-taken { background: #fee2e2; color: var(--danger); }
-
-        /* --- FEATURES GRID (BANYAK FITUR) --- */
-        .features-section {
-            padding: 100px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
-        .section-title span { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-size: 0.9rem; }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: var(--primary);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: #e0e7ff;
-            color: var(--primary);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--dark); }
-        .feature-card p { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
-
-        /* --- TECH SPECS --- */
-        .specs {
-            background: var(--dark);
-            color: white;
-            padding: 80px 5%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .specs-text { flex: 1; }
-        .specs-code { flex: 1; background: #1e293b; padding: 30px; border-radius: 15px; font-family: monospace; border: 1px solid #334155; }
         
-        .code-line { display: block; margin-bottom: 10px; color: #94a3b8; }
-        .code-val { color: #38bdf8; }
-        .code-key { color: #c084fc; }
+        .cart-icon { position: relative; cursor: pointer; margin-right: 10px; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; display: none; }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 100%); color: white;
+            padding: 160px 20px 100px; text-align: center; position: relative;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+        .search-container { max-width: 800px; margin: 0 auto; position: relative; }
+        .search-box {
+            background: white; padding: 8px; border-radius: 15px; display: flex;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 4px solid rgba(255,255,255,0.1);
+        }
+        .search-box input { border: none; outline: none; flex: 1; padding: 15px 25px; font-size: 1.1rem; border-radius: 10px; }
+        
+        /* Search Result */
+        #search-result { margin-top: 20px; padding: 20px; background: white; border-radius: 10px; color: var(--dark); display: none; text-align: left; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TABS SECTION (HARGA) --- */
+        .tabs-section { padding: 80px 5%; background: white; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 10px; }
+        
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+        .tab-btn { padding: 10px 30px; border-radius: 30px; background: #e2e8f0; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .price-card {
+            border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; text-align: center; transition: 0.3s; position: relative;
+        }
+        .price-card:hover { border-color: var(--primary); transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+        .price span { font-size: 1rem; color: #64748b; font-weight: 500; }
+        .features-list { list-style: none; margin-bottom: 30px; text-align: left; }
+        .features-list li { margin-bottom: 10px; color: #64748b; }
+        .features-list i { color: var(--success); margin-right: 10px; }
+
+        /* --- FAQ SECTION (Accordion) --- */
+        .faq-section { padding: 80px 5%; background: var(--light); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; border-radius: 10px; margin-bottom: 15px; padding: 20px; cursor: pointer; transition: 0.3s; }
+        .faq-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.1rem; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s ease; color: #64748b; margin-top: 0; }
+        .faq-item.active .faq-answer { max-height: 200px; margin-top: 15px; }
+        .faq-icon { transition: 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+
+        /* --- MODAL (LOGIN) --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .modal-content {
+            background-color: white; margin: 10% auto; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; position: relative;
+            animation: slideDown 0.4s; text-align: center;
+        }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 24px; cursor: pointer; color: #aaa; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; }
+
+        /* --- TOAST NOTIFICATION --- */
+        .toast {
+            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px;
+            padding: 16px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 17px;
+        }
+        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        /* --- FLOATING CHAT --- */
+        .float-chat {
+            position: fixed; bottom: 30px; right: 30px; background: var(--success); color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4); z-index: 1000; transition: 0.3s;
+        }
+        .float-chat:hover { transform: scale(1.1); }
 
         /* --- FOOTER --- */
-        footer {
-            background: var(--darker);
-            color: #94a3b8;
-            padding: 60px 5% 20px;
-            font-size: 0.9rem;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
+        footer { background: var(--darker); color: #94a3b8; padding: 60px 5% 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: white; margin-bottom: 20px; }
+        .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .footer-col a:hover { color: white; padding-left: 5px; }
 
-        .footer-col h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
-        .footer-col a:hover { color: white; }
-
-        /* --- MEDIA QUERIES (RESPONSIVE HP) --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            
-            .menu-toggle { display: block; }
-            .nav-links {
-                position: fixed;
-                background: white;
-                top: 70px;
-                right: -100%;
-                width: 80%;
-                height: 100vh;
-                flex-direction: column;
-                padding: 40px;
-                transition: 0.4s;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-            
-            .nav-links.active { right: 0; }
-            
-            .search-box { flex-direction: column; gap: 10px; padding: 15px; }
-            .search-box input { border-radius: 10px; width: 100%; }
-            .search-box button { width: 100%; justify-content: center; }
-            
-            .result-content { flex-direction: column; text-align: center; gap: 15px; }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; right: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; font-size: 1.5rem; cursor: pointer; }
         }
+        @media (min-width: 769px) { .menu-toggle { display: none; } }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo"><i class="fa-solid fa-globe"></i> RifqyDomainCreate</div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <div class="logo" onclick="window.location.reload()"><i class="fa-solid fa-globe"></i> RifqyDomain</div>
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
         <div class="nav-links" id="navMenu">
-            <a href="#">Beli Domain</a>
-            <a href="#">Transfer</a>
-            <a href="#">Hosting</a>
-            <a href="#">Email Bisnis</a>
-            <a href="#">Keamanan</a>
-            <a href="#" class="btn-action">Login Client</a>
+            <a href="#search">Cari Domain</a>
+            <a href="#pricing">Harga</a>
+            <a href="#features">Fitur</a>
+            <a href="#faq">FAQ</a>
+            <div class="cart-icon" onclick="showToast('Keranjang masih kosong!')">
+                <i class="fa-solid fa-cart-shopping" style="font-size: 1.2rem;"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <button class="btn btn-primary" onclick="openModal()">Login Client</button>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1>Nama Domain Sempurna<br>Untuk Ide Gilamu.</h1>
-        <p>Platform pendaftaran domain dengan fitur manajemen DNS tercanggih, Nameserver Kustom, dan integrasi GitHub Pages otomatis.</p>
+    <section class="hero" id="search">
+        <h1>Klaim Identitas Digitalmu.<br><span style="color: var(--secondary)">Sekarang Juga.</span></h1>
+        <p style="margin-bottom: 40px; color: #cbd5e1;">Platform #1 untuk manajemen domain, hosting, dan DNS dengan integrasi GitHub otomatis.</p>
         
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="domainInput" placeholder="Cari nama domain (contoh: rifqypro.id)...">
-                <button onclick="checkDomain()"><i class="fa-solid fa-magnifying-glass"></i> Cari Domain</button>
+                <input type="text" id="domainInput" placeholder="Cari nama domain impianmu (contoh: rifqypro.id)...">
+                <button class="btn btn-primary" onclick="checkDomain()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
             </div>
-
+            
             <div id="search-result">
-                <div id="loading" style="text-align: center; display: none;">
+                <div id="loading" style="text-align: center; display: none; padding: 20px;">
                     <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
-                    <p style="margin-top: 10px;">Mengecek ketersediaan di Registry...</p>
+                    <p>Mengecek database registry...</p>
                 </div>
-                
-                <div id="result-content" style="display: none;">
-                    <div class="result-content">
+                <div id="result-content" style="display: none; padding: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                         <div>
-                            <div class="domain-name" id="res-name">domain.com</div>
-                            <small id="res-msg">Selamat! Domain ini tersedia.</small>
+                            <h2 id="res-name" style="color: var(--dark);">domain.com</h2>
+                            <p id="res-msg" style="color: var(--success);"><i class="fa-solid fa-check-circle"></i> Tersedia untuk didaftarkan!</p>
                         </div>
-                        <div style="text-align: right;" id="price-action">
+                        <div style="text-align: right;">
                             <h3 style="color: var(--primary); font-size: 1.5rem;">Rp 125.000<span style="font-size: 0.9rem; color:#666">/thn</span></h3>
-                            <button class="btn-action" style="margin-top: 5px;">Daftar Sekarang</button>
+                            <button class="btn btn-primary" onclick="addToCart()">Masukkan Keranjang <i class="fa-solid fa-cart-plus"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="tabs-section" id="pricing">
+        <div class="section-header">
+            <h2>Pilih Paket Sesuai Kebutuhan</h2>
+            <p>Harga jujur, tanpa biaya tersembunyi.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'Domains')">Domain</button>
+            <button class="tab-btn" onclick="openTab(event, 'Hosting')">Cloud Hosting</button>
+            <button class="tab-btn" onclick="openTab(event, 'Email')">Email Bisnis</button>
+        </div>
+
+        <div id="Domains" class="tab-content active">
+            <div class="price-card">
+                <h3>Starter ID</h3>
+                <div class="price">Rp 12rb<span>/thn</span></div>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check"></i> <strong>.my.id</strong> Domain</li>
+                    <li><i class="fa-solid fa-check"></i> DNS Management</li>
+                    <li><i class="fa-solid fa-check"></i> GitHub Pages Support</li>
+                </ul>
+                <button class="btn btn-outline" onclick="addToCart()">Pilih Paket</button>
+            </div>
+            <div class="price-card" style="border-color: var(--primary); transform: scale(1.05);">
+                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">BEST SELLER</div>
+                <h3>Global Biz</h3>
+                <div class="price">Rp 135rb<span>/thn</span></div>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check"></i> <strong>.com</strong> Domain</li>
+                    <li><i class="fa-solid fa-check"></i> Whois Privacy Protection</li>
+                    <li><i class="fa-solid fa-check"></i> Premium DNS</li>
+                </ul>
+                <button class="btn btn-primary" onclick="addToCart()">Pilih Paket</button>
+            </div>
+            <div class="price-card">
+                <h3>Tech Pro</h3>
+                <div class="price">Rp 450rb<span>/thn</span></div>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check"></i> <strong>.io</strong> Domain</li>
+                    <li><i class="fa-solid fa-check"></i> Priority Support</li>
+                    <li><i class="fa-solid fa-check"></i> API Access</li>
+                </ul>
+                <button class="btn btn-outline" onclick="addToCart()">Pilih Paket</button>
+            </div>
+        </div>
+
+        <div id="Hosting" class="tab-content">
+            <div class="price-card">
+                <h3>GitHub Pages Config</h3>
+                <div class="price">GRATIS</div>
+                <p>Kami bantu setup DNS ke GitHub Pages.</p>
+                <button class="btn btn-outline" style="margin-top: 20px;" onclick="window.location.href='https://github.com'">Buka GitHub</button>
+            </div>
+            <div class="price-card">
+                <h3>Cloud VPS</h3>
+                <div class="price">Rp 50rb<span>/bln</span></div>
+                <p>1 Core CPU, 1GB RAM, 20GB SSD.</p>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="addToCart()">Beli VPS</button>
+            </div>
+        </div>
         
-        <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; color: #94a3b8;">
-            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> Free Whois Privacy</span>
-            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> DNS Management</span>
-            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> 24/7 Support</span>
-        </div>
-    </section>
-
-    <section class="features-section">
-        <div class="section-title">
-            <span>Power Features</span>
-            <h2>Semua yang Anda Butuhkan</h2>
-            <p>Kami tidak sekadar menjual nama. Kami memberikan kontrol penuh.</p>
-        </div>
-
-        <div class="grid-container">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-server"></i></div>
-                <h3>Custom Nameserver</h3>
-                <p>Gunakan branding sendiri dengan <code>ns1.rifqydev.my.id</code> untuk terlihat lebih profesional di mata klien.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-brands fa-github"></i></div>
-                <h3>GitHub Pages Ready</h3>
-                <p>Satu klik konfigurasi A Record untuk menyambungkan domain ke repository GitHub Pages Anda.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>Whois Privacy Protection</h3>
-                <p>Sembunyikan nama, alamat, dan email pribadi Anda dari database publik WHOIS. Gratis selamanya.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-                <h3>Fast DNS Propagation</h3>
-                <p>Server DNS kami tersebar di 12 negara, menjamin propagasi domain di bawah 30 menit.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
-                <h3>Domain Lock</h3>
-                <p>Kunci domain Anda untuk mencegah transfer ilegal atau pembajakan oleh pihak tidak bertanggung jawab.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-shuffle"></i></div>
-                <h3>URL Forwarding</h3>
-                <p>Arahkan domain lama ke domain baru, atau ke link sosial media Anda dengan mudah (301/302 Redirection).</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div id="Email" class="tab-content">
+            <div class="price-card">
                 <h3>Email Forwarding</h3>
-                <p>Buat <code>admin@domainmu.com</code> dan teruskan pesan masuknya ke Gmail pribadi Anda.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
-                <h3>Full DNS Control</h3>
-                <p>Akses penuh ke A, CNAME, MX, TXT, SRV, dan AAAA Records melalui panel kontrol RifqyDev.</p>
+                <div class="price">GRATIS</div>
+                <p>Teruskan email @domain ke Gmail kamu.</p>
+                <button class="btn btn-primary" style="margin-top: 20px;">Aktifkan</button>
             </div>
         </div>
     </section>
 
-    <section class="specs">
-        <div class="specs-text">
-            <h2>Konfigurasi Nameserver Otomatis</h2>
-            <p style="color: #94a3b8; margin-top: 15px; line-height: 1.8;">
-                Jangan pusing dengan pengaturan teknis. Saat Anda membeli domain di RifqyDomainCreate, sistem kami otomatis menyiapkan Zone File yang optimal. Anda hanya perlu memilih target: Cloudflare, GitHub, atau Shared Hosting.
-            </p>
-            <ul style="margin-top: 20px; list-style: none; padding: 0;">
-                <li style="margin-bottom: 10px;"><i class="fa-solid fa-check-circle" style="color: var(--primary)"></i> 99.9% Uptime Guarantee</li>
-                <li style="margin-bottom: 10px;"><i class="fa-solid fa-check-circle" style="color: var(--primary)"></i> DDoS Protection by Cloudflare</li>
-            </ul>
+    <section class="faq-section" id="faq">
+        <div class="section-header">
+            <h2>Pertanyaan Umum</h2>
         </div>
-        <div class="specs-code">
-            <span class="code-line"><span class="code-key">Primary NS:</span> <span class="code-val">ns1.rifqydev.my.id</span></span>
-            <span class="code-line"><span class="code-key">Secondary NS:</span> <span class="code-val">ns2.rifqydev.my.id</span></span>
-            <span class="code-line"><span class="code-key">TTL:</span> <span class="code-val">3600 (1 Hour)</span></span>
-            <span class="code-line"><span class="code-key">SOA:</span> <span class="code-val">hostmaster.rifqydev.my.id</span></span>
-            <br>
-            <span class="code-line" style="color: #64748b">// Auto-Configured for GitHub Pages</span>
-            <span class="code-line"><span class="code-key">A Record (@):</span> <span class="code-val">185.199.108.153</span></span>
+        <div class="faq-container">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Bagaimana cara setting ke GitHub Pages? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
+                <div class="faq-answer">Sangat mudah! Beli domain di sini, lalu masuk ke Client Area > DNS Manager. Klik tombol "Template: GitHub Pages", dan IP akan otomatis terisi.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Apakah nameserver ns1.rifqydev.my.id gratis? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
+                <div class="faq-answer">Ya! Semua pembelian domain di RifqyDomainCreate otomatis mendapatkan akses ke nameserver premium kami yang terintegrasi dengan Cloudflare.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">Berapa lama proses aktivasi domain? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
+                <div class="faq-answer">Instan! Setelah pembayaran terkonfirmasi, domain langsung aktif dalam hitungan detik.</div>
+            </div>
         </div>
     </section>
 
-    <footer>
+    <footer id="features">
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>RifqyDomainCreate</h4>
-                <p>Bagian dari ekosistem RifqyDevs. Menyediakan solusi infrastruktur web sejak 2024.</p>
+                <p>Solusi infrastruktur digital terpercaya.</p>
+                <div style="margin-top: 20px;">
+                    <i class="fa-brands fa-facebook fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
+                    <i class="fa-brands fa-twitter fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
+                    <i class="fa-brands fa-instagram fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
+                </div>
             </div>
             <div class="footer-col">
-                <h4>Produk</h4>
-                <ul>
-                    <li><a href="#">Domain Registration</a></li>
-                    <li><a href="#">Cloud Hosting</a></li>
-                    <li><a href="#">SSL Certificates</a></li>
-                    <li><a href="#">Website Builder</a></li>
-                </ul>
+                <h4>Layanan</h4>
+                <a href="#pricing" onclick="openTab(event, 'Domains')">Domain Murah</a>
+                <a href="#pricing" onclick="openTab(event, 'Hosting')">Cloud Hosting</a>
+                <a href="#">Transfer Domain</a>
             </div>
             <div class="footer-col">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Pusat Bantuan</a></li>
-                    <li><a href="#">Status Server</a></li>
-                    <li><a href="#">Report Abuse</a></li>
-                    <li><a href="#">Kontak Kami</a></li>
-                </ul>
+                <h4>Bantuan</h4>
+                <a href="#" onclick="alert('Membuka halaman tiket...')">Kirim Tiket</a>
+                <a href="#" onclick="alert('Membuka status server...')">Status Server</a>
             </div>
             <div class="footer-col">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                </ul>
+                <h4>Newsletter</h4>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" placeholder="Email kamu" style="padding: 10px; border-radius: 5px; border: none; width: 100%;">
+                    <button class="btn-primary" style="padding: 10px; border-radius: 5px;" onclick="showToast('Terima kasih telah berlangganan!')"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
             </div>
         </div>
-        <div style="text-align: center; border-top: 1px solid #334155; padding-top: 20px;">
-            <p>&copy; 2025 RifqyDomainCreate. All rights reserved.</p>
-        </div>
+        <p style="text-align: center; border-top: 1px solid #334155; padding-top: 20px;">&copy; 2025 RifqyDomainCreate. Powered by GitHub.</p>
     </footer>
 
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 20px; color: var(--dark);">Client Login</h2>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="contoh: user@rifqy.id">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="********">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="loginAction()">Masuk Dashboard</button>
+            <p style="margin-top: 15px; font-size: 0.9rem;">Belum punya akun? <a href="#" style="color: var(--primary);">Daftar disini</a></p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Item ditambahkan ke keranjang!</div>
+
+    <div class="float-chat" onclick="alert('Halo! CS Rifqy siap membantu anda. (Simulasi Chat)')">
+        <i class="fa-solid fa-comments"></i>
+    </div>
+
     <script>
-        // 1. Logic Burger Menu (HP)
+        // 1. Logic Responsive Menu
         function toggleMenu() {
-            const nav = document.getElementById('navMenu');
-            nav.classList.toggle('active');
+            document.getElementById('navMenu').classList.toggle('active');
         }
 
-        // 2. Logic Pencarian Domain (Simulasi)
+        // 2. Logic Pencarian Domain
         function checkDomain() {
             const input = document.getElementById('domainInput').value;
             const resultBox = document.getElementById('search-result');
             const loading = document.getElementById('loading');
             const content = document.getElementById('result-content');
-            
-            // Nama Domain Output
             const resName = document.getElementById('res-name');
-            const resMsg = document.getElementById('res-msg');
-            const resStatus = document.getElementById('price-action');
 
-            if(input.length < 3) {
-                alert("Masukkan nama domain minimal 3 karakter!");
-                return;
-            }
+            if(input.length < 3) { showToast('Nama domain terlalu pendek!'); return; }
 
-            // Reset tampilan
             resultBox.style.display = "block";
             loading.style.display = "block";
             content.style.display = "none";
 
-            // Simulasi Loading 1.5 detik
             setTimeout(() => {
                 loading.style.display = "none";
                 content.style.display = "block";
-                
-                // Set Data Simulasi
                 resName.innerText = input.includes('.') ? input : input + ".com";
-                
-                // Random Logic untuk Demo (Biar seru)
-                // 80% Tersedia, 20% Tidak
-                const isAvailable = Math.random() < 0.8; 
+            }, 1000);
+        }
 
-                if(isAvailable) {
-                    resMsg.innerHTML = '<span class="domain-status status-avail"><i class="fa-solid fa-check"></i> Tersedia</span>';
-                    resMsg.style.color = "var(--success)";
-                    resStatus.innerHTML = `
-                        <h3 style="color: var(--primary); font-size: 1.5rem;">Rp 125.000<span style="font-size: 0.9rem; color:#666">/thn</span></h3>
-                        <button class="btn-action" style="margin-top: 5px;">Daftar Sekarang</button>
-                    `;
-                } else {
-                    resMsg.innerHTML = '<span class="domain-status status-taken"><i class="fa-solid fa-xmark"></i> Sudah Milik Orang Lain</span>';
-                    resStatus.innerHTML = `
-                        <button class="btn-action" style="background: #cbd5e1; color: #64748b !important; cursor: not-allowed;">Tidak Tersedia</button>
-                        <div style="margin-top:5px; font-size:0.8rem;"><a href="#">Coba Whois Lookup?</a></div>
-                    `;
-                }
+        // 3. Logic Tabs (Harga)
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "grid";
+            document.getElementById(tabName).classList.add("active");
+            if(evt) evt.currentTarget.className += " active";
+        }
 
-            }, 1500);
+        // 4. Logic Accordion (FAQ)
+        function toggleFaq(element) {
+            element.classList.toggle("active");
+        }
+
+        // 5. Logic Modal (Login)
+        function openModal() { document.getElementById('loginModal').style.display = "block"; }
+        function closeModal() { document.getElementById('loginModal').style.display = "none"; }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('loginModal')) {
+                closeModal();
+            }
+        }
+        function loginAction() {
+            closeModal();
+            showToast("Login Berhasil! Mengalihkan...");
+        }
+
+        // 6. Logic Cart & Toast
+        let cartTotal = 0;
+        function addToCart() {
+            cartTotal++;
+            document.getElementById('cartCount').innerText = cartTotal;
+            document.getElementById('cartCount').style.display = "block";
+            showToast("Sukses masuk keranjang! 🛒");
+        }
+
+        function showToast(message) {
+            var x = document.getElementById("toast");
+            x.innerText = message;
+            x.className = "toast show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
 </body>
