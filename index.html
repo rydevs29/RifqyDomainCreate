@@ -3,417 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RifqyDomainCreate - Ultimate Domain Platform</title>
+    <title>RifqyDomainCreate - Global Domain Registrar & DNS Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #0ea5e9;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #0ea5e9;
             --dark: #0f172a;
             --darker: #020617;
-            --light: #f1f5f9;
+            --light: #f8fafc;
             --white: #ffffff;
-            --text: #334155;
-            --success: #22c55e;
+            --text: #475569;
+            --text-heading: #1e293b;
+            --success: #10b981;
             --danger: #ef4444;
+            --warning: #f59e0b;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--text); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--light); color: var(--text); overflow-x: hidden; font-size: 16px; }
 
-        /* --- UI COMPONENTS --- */
-        .btn {
-            padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; text-decoration: none; display: inline-block;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        .btn { padding: 14px 28px; border-radius: 50px; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
         .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
         .btn-outline:hover { background: var(--primary); color: white; }
+        .badge { background: var(--warning); color: var(--darker); padding: 5px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+
+        /* --- TOP BAR --- */
+        .top-bar { background: var(--darker); color: #94a3b8; font-size: 0.85rem; padding: 8px 0; border-bottom: 1px solid #1e293b; }
+        .top-bar .container { display: flex; justify-content: space-between; }
+        .top-bar a { color: white; text-decoration: none; margin-left: 15px; }
 
         /* --- NAVBAR --- */
-        nav {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%;
-            display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo i { color: var(--primary); }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
+        nav { background: rgba(255, 255, 255, 0.98); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-heading); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--primary); }
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--dark); cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); padding: 100px 0 80px; color: white; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: url('https://www.transparenttextures.com/patterns/cubes.png'); opacity: 0.1; }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
+        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 40px; }
+
+        /* --- DOMAIN SEARCH BOX (ULTIMATE) --- */
+        .search-box-wrapper { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .search-box { background: white; display: flex; border-radius: 15px; overflow: hidden; padding: 5px; }
+        .search-box input { border: none; flex: 1; padding: 15px 25px; font-size: 1.1rem; outline: none; color: var(--dark); font-weight: 600; }
+        .search-box button { border-radius: 10px; padding: 0 40px; font-size: 1.1rem; }
+
+        /* --- SEARCH RESULTS --- */
+        #search-result-area { max-width: 800px; margin: 20px auto 0; display: none; }
+        .result-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; color: var(--dark); box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .tld-badge { background: #e0f2fe; color: var(--primary); padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; margin-right: 10px; }
+
+        /* --- TLD SCROLLER --- */
+        .tld-scroller { display: flex; justify-content: center; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
+        .tld-item { color: rgba(255,255,255,0.6); font-weight: 700; font-size: 1.2rem; }
+
+        /* --- FEATURES GRID --- */
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .section-title span { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin: 10px 0 20px; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-box { background: white; padding: 35px; border-radius: 20px; border: 1px solid #e2e8f0; transition: 0.3s; position: relative; overflow: hidden; }
+        .feature-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .feature-icon { width: 60px; height: 60px; background: #eff6ff; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 25px; }
+        .feature-box h3 { font-size: 1.25rem; color: var(--dark); margin-bottom: 15px; }
+        .feature-box p { color: var(--text); line-height: 1.6; font-size: 0.95rem; }
+
+        /* --- PRICING TABS --- */
+        .tabs-container { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9; }
+        .tabs-nav { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; }
+        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: 600; color: #94a3b8; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
         
-        .cart-icon { position: relative; cursor: pointer; margin-right: 10px; }
-        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; display: none; }
-
-        /* --- HERO --- */
-        .hero {
-            background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 100%); color: white;
-            padding: 160px 20px 100px; text-align: center; position: relative;
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
-        .search-container { max-width: 800px; margin: 0 auto; position: relative; }
-        .search-box {
-            background: white; padding: 8px; border-radius: 15px; display: flex;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 4px solid rgba(255,255,255,0.1);
-        }
-        .search-box input { border: none; outline: none; flex: 1; padding: 15px 25px; font-size: 1.1rem; border-radius: 10px; }
+        .tab-content { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .tab-content.active { display: grid; }
         
-        /* Search Result */
-        #search-result { margin-top: 20px; padding: 20px; background: white; border-radius: 10px; color: var(--dark); display: none; text-align: left; animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .price-col { border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; text-align: center; transition: 0.3s; }
+        .price-col:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .price-col.featured { background: #1e293b; color: white; border: none; transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 10; }
+        .price-col h3 { margin-bottom: 10px; font-size: 1.3rem; }
+        .price-tag { font-size: 2.5rem; font-weight: 800; margin: 20px 0; color: var(--primary); }
+        .price-col.featured .price-tag { color: #38bdf8; }
+        .feature-list { list-style: none; text-align: left; margin: 20px 0; }
+        .feature-list li { margin-bottom: 12px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
 
-        /* --- TABS SECTION (HARGA) --- */
-        .tabs-section { padding: 80px 5%; background: white; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 10px; }
-        
-        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
-        .tab-btn { padding: 10px 30px; border-radius: 30px; background: #e2e8f0; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .tab-btn.active { background: var(--primary); color: white; }
-        
-        .tab-content { display: none; animation: fadeIn 0.5s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- STATS --- */
+        .stats-section { background: var(--dark); color: white; padding: 60px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+        .stat-label { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
 
-        .price-card {
-            border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; text-align: center; transition: 0.3s; position: relative;
-        }
-        .price-card:hover { border-color: var(--primary); transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
-        .price span { font-size: 1rem; color: #64748b; font-weight: 500; }
-        .features-list { list-style: none; margin-bottom: 30px; text-align: left; }
-        .features-list li { margin-bottom: 10px; color: #64748b; }
-        .features-list i { color: var(--success); margin-right: 10px; }
-
-        /* --- FAQ SECTION (Accordion) --- */
-        .faq-section { padding: 80px 5%; background: var(--light); }
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        .faq-item { background: white; border-radius: 10px; margin-bottom: 15px; padding: 20px; cursor: pointer; transition: 0.3s; }
-        .faq-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.1rem; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s ease; color: #64748b; margin-top: 0; }
-        .faq-item.active .faq-answer { max-height: 200px; margin-top: 15px; }
-        .faq-icon { transition: 0.3s; }
-        .faq-item.active .faq-icon { transform: rotate(180deg); }
-
-        /* --- MODAL (LOGIN) --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-        .modal-content {
-            background-color: white; margin: 10% auto; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; position: relative;
-            animation: slideDown 0.4s; text-align: center;
-        }
-        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 24px; cursor: pointer; color: #aaa; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; }
-
-        /* --- TOAST NOTIFICATION --- */
-        .toast {
-            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px;
-            padding: 16px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 17px;
-        }
-        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
-        /* --- FLOATING CHAT --- */
-        .float-chat {
-            position: fixed; bottom: 30px; right: 30px; background: var(--success); color: white; width: 60px; height: 60px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4); z-index: 1000; transition: 0.3s;
-        }
-        .float-chat:hover { transform: scale(1.1); }
+        /* --- TECH INFO (SERVER) --- */
+        .tech-info { background: #fff; border-radius: 20px; overflow: hidden; display: flex; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.05); margin-top: 50px; }
+        .tech-text { padding: 50px; flex: 1; }
+        .tech-code { background: #0f172a; padding: 50px; flex: 1; font-family: monospace; color: #38bdf8; display: flex; flex-direction: column; justify-content: center; }
+        .code-line { display: block; margin-bottom: 10px; border-left: 3px solid #334155; padding-left: 15px; }
+        .code-comment { color: #64748b; font-style: italic; }
 
         /* --- FOOTER --- */
-        footer { background: var(--darker); color: #94a3b8; padding: 60px 5% 20px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
-        .footer-col h4 { color: white; margin-bottom: 20px; }
-        .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px; transition: 0.3s; }
-        .footer-col a:hover { color: white; padding-left: 5px; }
+        footer { background: var(--darker); color: #cbd5e1; padding: 80px 0 30px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .footer-about p { margin: 20px 0; line-height: 1.6; color: #94a3b8; }
+        .footer-col h4 { color: white; margin-bottom: 25px; font-size: 1.1rem; }
+        .footer-links a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
+        .footer-links a:hover { color: white; padding-left: 5px; }
+        .payment-methods { display: flex; gap: 10px; margin-top: 20px; }
+        .payment-methods i { font-size: 1.5rem; }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; right: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-            .nav-links.active { display: flex; }
-            .menu-toggle { display: block; font-size: 1.5rem; cursor: pointer; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+            .tech-info { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
-        @media (min-width: 769px) { .menu-toggle { display: none; } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .hero h1 { font-size: 2rem; }
+            .search-box { flex-direction: column; padding: 10px; }
+            .search-box input { margin-bottom: 10px; width: 100%; text-align: center; }
+            .search-box button { width: 100%; }
+            .result-card { flex-direction: column; text-align: center; gap: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo" onclick="window.location.reload()"><i class="fa-solid fa-globe"></i> RifqyDomain</div>
-        <div class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
-        <div class="nav-links" id="navMenu">
-            <a href="#search">Cari Domain</a>
-            <a href="#pricing">Harga</a>
-            <a href="#features">Fitur</a>
-            <a href="#faq">FAQ</a>
-            <div class="cart-icon" onclick="showToast('Keranjang masih kosong!')">
-                <i class="fa-solid fa-cart-shopping" style="font-size: 1.2rem;"></i>
-                <span class="cart-count" id="cartCount">0</span>
+    <div class="top-bar">
+        <div class="container">
+            <span><i class="fa-solid fa-tag"></i> Promo Spesial: Domain .MY.ID hanya Rp 10.000!</span>
+            <div>
+                <a href="#"><i class="fa-solid fa-headset"></i> Support</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Docs</a>
             </div>
-            <button class="btn btn-primary" onclick="openModal()">Login Client</button>
+        </div>
+    </div>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="logo"><i class="fa-solid fa-globe"></i> Rifqy<span>Domain</span></a>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-links" id="navLinks">
+                <a href="#domains">Domain</a>
+                <a href="#hosting">Hosting</a>
+                <a href="#security">Security</a>
+                <a href="#servers">Servers</a>
+                <a href="#" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
+                <a href="#" class="btn btn-primary" style="padding: 8px 20px;">Daftar</a>
+            </div>
         </div>
     </nav>
 
-    <section class="hero" id="search">
-        <h1>Klaim Identitas Digitalmu.<br><span style="color: var(--secondary)">Sekarang Juga.</span></h1>
-        <p style="margin-bottom: 40px; color: #cbd5e1;">Platform #1 untuk manajemen domain, hosting, dan DNS dengan integrasi GitHub otomatis.</p>
-        
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="domainInput" placeholder="Cari nama domain impianmu (contoh: rifqypro.id)...">
-                <button class="btn btn-primary" onclick="checkDomain()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
-            </div>
-            
-            <div id="search-result">
-                <div id="loading" style="text-align: center; display: none; padding: 20px;">
-                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
-                    <p>Mengecek database registry...</p>
+    <section class="hero">
+        <div class="container hero-content">
+            <span class="badge">🚀 Ultimate DNS Platform</span>
+            <h1>Nama Adalah Segalanya.<br>Mulai Ide Besarmu Disini.</h1>
+            <p>Platform pendaftaran domain tercanggih dengan integrasi GitHub Pages otomatis, Custom Nameserver, dan Perlindungan Privasi tanpa biaya tambahan.</p>
+
+            <div class="search-box-wrapper">
+                <div class="search-box">
+                    <input type="text" id="domainInput" placeholder="Ketik nama brand impianmu (cth: rifqytech)...">
+                    <button class="btn btn-primary" onclick="searchDomain()">Cari Domain</button>
                 </div>
-                <div id="result-content" style="display: none; padding: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                        <div>
-                            <h2 id="res-name" style="color: var(--dark);">domain.com</h2>
-                            <p id="res-msg" style="color: var(--success);"><i class="fa-solid fa-check-circle"></i> Tersedia untuk didaftarkan!</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <h3 style="color: var(--primary); font-size: 1.5rem;">Rp 125.000<span style="font-size: 0.9rem; color:#666">/thn</span></h3>
-                            <button class="btn btn-primary" onclick="addToCart()">Masukkan Keranjang <i class="fa-solid fa-cart-plus"></i></button>
-                        </div>
+            </div>
+
+            <div id="search-result-area">
+                </div>
+
+            <div class="tld-scroller">
+                <div class="tld-item">.COM</div>
+                <div class="tld-item">.ID</div>
+                <div class="tld-item">.NET</div>
+                <div class="tld-item">.IO</div>
+                <div class="tld-item">.ORG</div>
+                <div class="tld-item">.TECH</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container stats-grid">
+            <div>
+                <div class="stat-number">15K+</div>
+                <div class="stat-label">Domain Terdaftar</div>
+            </div>
+            <div>
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Server Uptime</div>
+            </div>
+            <div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support Expert</div>
+            </div>
+            <div>
+                <div class="stat-number">12</div>
+                <div class="stat-label">Lokasi DNS</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="domains">
+        <div class="container">
+            <div class="section-title">
+                <span>Harga Transparan</span>
+                <h2>Pilih Paket Sesuai Kebutuhan</h2>
+                <p>Tanpa biaya tersembunyi. Apa yang Anda lihat adalah yang Anda bayar.</p>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" onclick="switchTab('tab-domain')">Domain</button>
+                    <button class="tab-btn" onclick="switchTab('tab-hosting')">Cloud Hosting</button>
+                    <button class="tab-btn" onclick="switchTab('tab-security')">Keamanan SSL</button>
+                </div>
+
+                <div id="tab-domain" class="tab-content active">
+                    <div class="price-col">
+                        <h3>Personal ID</h3>
+                        <div class="price-tag">Rp 12rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check text-success"></i> Ekstensi <strong>.my.id</strong></li>
+                            <li><i class="fa-solid fa-check text-success"></i> DNS Management</li>
+                            <li><i class="fa-solid fa-check text-success"></i> GitHub Pages Connect</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%">Daftar Sekarang</button>
+                    </div>
+                    <div class="price-col featured">
+                        <div class="badge" style="margin-bottom:15px; display:inline-block;">POPULER</div>
+                        <h3>Global Biz</h3>
+                        <div class="price-tag">Rp 145rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check text-info"></i> Ekstensi <strong>.com</strong></li>
+                            <li><i class="fa-solid fa-check text-info"></i> Whois Privacy GRATIS</li>
+                            <li><i class="fa-solid fa-check text-info"></i> Premium DNS</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width:100%">Daftar Sekarang</button>
+                    </div>
+                    <div class="price-col">
+                        <h3>Startup Tech</h3>
+                        <div class="price-tag">Rp 550rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check text-success"></i> Ekstensi <strong>.io</strong> / <strong>.ai</strong></li>
+                            <li><i class="fa-solid fa-check text-success"></i> Priority Support</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Domain Lock</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%">Daftar Sekarang</button>
+                    </div>
+                </div>
+
+                <div id="tab-hosting" class="tab-content">
+                    <div class="price-col">
+                        <h3>GitHub Pages</h3>
+                        <div class="price-tag">GRATIS</div>
+                        <p>Kami bantu setup DNS record Anda ke repository GitHub secara gratis dan otomatis.</p>
+                        <button class="btn btn-outline" style="margin-top:20px;">Lihat Tutorial</button>
+                    </div>
+                    <div class="price-col">
+                        <h3>Cloud VPS Starter</h3>
+                        <div class="price-tag">Rp 65rb<span style="font-size:1rem;color:#94a3b8">/bln</span></div>
+                        <p>1 Core CPU, 2GB RAM, 40GB NVMe SSD. Lokasi Jakarta.</p>
+                        <button class="btn btn-primary" style="margin-top:20px;">Deploy VPS</button>
+                    </div>
+                </div>
+
+                 <div id="tab-security" class="tab-content">
+                    <div class="price-col">
+                        <h3>Let's Encrypt SSL</h3>
+                        <div class="price-tag">GRATIS</div>
+                        <p>Sertifikat SSL standar untuk keamanan website Anda. Auto-renewal.</p>
+                        <button class="btn btn-outline" style="margin-top:20px;">Aktifkan</button>
+                    </div>
+                    <div class="price-col">
+                        <h3>Comodo PositiveSSL</h3>
+                        <div class="price-tag">Rp 120rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
+                        <p>Jaminan keamanan lebih tinggi dengan garansi hingga $10,000.</p>
+                        <button class="btn btn-primary" style="margin-top:20px;">Beli SSL</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="tabs-section" id="pricing">
-        <div class="section-header">
-            <h2>Pilih Paket Sesuai Kebutuhan</h2>
-            <p>Harga jujur, tanpa biaya tersembunyi.</p>
-        </div>
-
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'Domains')">Domain</button>
-            <button class="tab-btn" onclick="openTab(event, 'Hosting')">Cloud Hosting</button>
-            <button class="tab-btn" onclick="openTab(event, 'Email')">Email Bisnis</button>
-        </div>
-
-        <div id="Domains" class="tab-content active">
-            <div class="price-card">
-                <h3>Starter ID</h3>
-                <div class="price">Rp 12rb<span>/thn</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> <strong>.my.id</strong> Domain</li>
-                    <li><i class="fa-solid fa-check"></i> DNS Management</li>
-                    <li><i class="fa-solid fa-check"></i> GitHub Pages Support</li>
-                </ul>
-                <button class="btn btn-outline" onclick="addToCart()">Pilih Paket</button>
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-title">
+                <span>Kenapa RifqyDomainCreate?</span>
+                <h2>Fitur Ultimate untuk Developer</h2>
             </div>
-            <div class="price-card" style="border-color: var(--primary); transform: scale(1.05);">
-                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">BEST SELLER</div>
-                <h3>Global Biz</h3>
-                <div class="price">Rp 135rb<span>/thn</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> <strong>.com</strong> Domain</li>
-                    <li><i class="fa-solid fa-check"></i> Whois Privacy Protection</li>
-                    <li><i class="fa-solid fa-check"></i> Premium DNS</li>
-                </ul>
-                <button class="btn btn-primary" onclick="addToCart()">Pilih Paket</button>
-            </div>
-            <div class="price-card">
-                <h3>Tech Pro</h3>
-                <div class="price">Rp 450rb<span>/thn</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> <strong>.io</strong> Domain</li>
-                    <li><i class="fa-solid fa-check"></i> Priority Support</li>
-                    <li><i class="fa-solid fa-check"></i> API Access</li>
-                </ul>
-                <button class="btn btn-outline" onclick="addToCart()">Pilih Paket</button>
-            </div>
-        </div>
-
-        <div id="Hosting" class="tab-content">
-            <div class="price-card">
-                <h3>GitHub Pages Config</h3>
-                <div class="price">GRATIS</div>
-                <p>Kami bantu setup DNS ke GitHub Pages.</p>
-                <button class="btn btn-outline" style="margin-top: 20px;" onclick="window.location.href='https://github.com'">Buka GitHub</button>
-            </div>
-            <div class="price-card">
-                <h3>Cloud VPS</h3>
-                <div class="price">Rp 50rb<span>/bln</span></div>
-                <p>1 Core CPU, 1GB RAM, 20GB SSD.</p>
-                <button class="btn btn-primary" style="margin-top: 20px;" onclick="addToCart()">Beli VPS</button>
-            </div>
-        </div>
-        
-        <div id="Email" class="tab-content">
-            <div class="price-card">
-                <h3>Email Forwarding</h3>
-                <div class="price">GRATIS</div>
-                <p>Teruskan email @domain ke Gmail kamu.</p>
-                <button class="btn btn-primary" style="margin-top: 20px;">Aktifkan</button>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Propagasi Kilat</h3>
+                    <p>DNS kami menggunakan anycast network global, memastikan domain Anda bisa diakses dari seluruh dunia dalam hitungan menit.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-brands fa-github"></i></div>
+                    <h3>GitHub Integration</h3>
+                    <p>Satu-satunya provider dengan tombol "One-Click Deploy" untuk menghubungkan domain ke GitHub Pages tanpa ribet edit DNS manual.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>Whois Privacy</h3>
+                    <p>Data pribadi Anda aman. Kami mengganti info kontak publik domain Anda dengan data proxy kami untuk mencegah spam.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
+                    <h3>Domain Lock</h3>
+                    <p>Kunci domain Anda dari upaya transfer ilegal. Keamanan tingkat tinggi untuk aset digital berharga Anda.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <h3>Email Forwarding</h3>
+                    <p>Buat alamat email profesional (admin@bisnis.com) dan teruskan semua pesan masuk ke Gmail pribadi Anda.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-code-branch"></i></div>
+                    <h3>API Access</h3>
+                    <p>Kontrol domain Anda secara programatik. Cocok untuk reseller atau developer yang ingin otomasi sistem.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="faq-section" id="faq">
-        <div class="section-header">
-            <h2>Pertanyaan Umum</h2>
-        </div>
-        <div class="faq-container">
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Bagaimana cara setting ke GitHub Pages? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
-                <div class="faq-answer">Sangat mudah! Beli domain di sini, lalu masuk ke Client Area > DNS Manager. Klik tombol "Template: GitHub Pages", dan IP akan otomatis terisi.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Apakah nameserver ns1.rifqydev.my.id gratis? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
-                <div class="faq-answer">Ya! Semua pembelian domain di RifqyDomainCreate otomatis mendapatkan akses ke nameserver premium kami yang terintegrasi dengan Cloudflare.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">Berapa lama proses aktivasi domain? <i class="fa-solid fa-chevron-down faq-icon"></i></div>
-                <div class="faq-answer">Instan! Setelah pembayaran terkonfirmasi, domain langsung aktif dalam hitungan detik.</div>
+    <section class="section" id="servers">
+        <div class="container">
+            <div class="tech-info">
+                <div class="tech-text">
+                    <span class="badge">Infrastruktur</span>
+                    <h2 style="margin: 20px 0; color: var(--dark); font-size: 2rem;">Nameserver Kustom Enterprise</h2>
+                    <p style="color: #64748b; line-height: 1.7; margin-bottom: 30px;">
+                        Gunakan nameserver branding "RifqyDev" untuk meningkatkan kepercayaan klien Anda. Ditenagai oleh Cloudflare Network, menjamin anti-DDoS dan kecepatan akses maksimal.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check-circle text-success"></i> Support A, AAAA, CNAME, MX, TXT, SRV</li>
+                        <li><i class="fa-solid fa-check-circle text-success"></i> TTL Rendah (Update Cepat)</li>
+                        <li><i class="fa-solid fa-check-circle text-success"></i> IPv6 Ready</li>
+                    </ul>
+                </div>
+                <div class="tech-code">
+                    <span class="code-comment">// Konfigurasi Nameserver Default</span>
+                    <span class="code-line">Primary NS: <span style="color:white">ns1.rifqydev.my.id</span></span>
+                    <span class="code-line">Secondary NS: <span style="color:white">ns2.rifqydev.my.id</span></span>
+                    <br>
+                    <span class="code-comment">// GitHub Pages A Records (Auto)</span>
+                    <span class="code-line">@ 185.199.108.153</span>
+                    <span class="code-line">@ 185.199.109.153</span>
+                    <span class="code-line">@ 185.199.110.153</span>
+                    <span class="code-line">@ 185.199.111.153</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer id="features">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>RifqyDomainCreate</h4>
-                <p>Solusi infrastruktur digital terpercaya.</p>
-                <div style="margin-top: 20px;">
-                    <i class="fa-brands fa-facebook fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
-                    <i class="fa-brands fa-twitter fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
-                    <i class="fa-brands fa-instagram fa-lg" style="margin-right: 15px; cursor: pointer;"></i>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo" style="color:white"><i class="fa-solid fa-globe"></i> Rifqy<span>Domain</span></a>
+                    <p>Bagian dari ekosistem RifqyDevs. Kami menyediakan infrastruktur web yang andal, aman, dan terjangkau untuk kreator Indonesia.</p>
+                    <div class="payment-methods">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+                </div>
+                <div class="footer-col footer-links">
+                    <h4>Produk</h4>
+                    <a href="#">Beli Domain</a>
+                    <a href="#">Transfer Domain</a>
+                    <a href="#">Cloud Hosting</a>
+                    <a href="#">Email Bisnis</a>
+                    <a href="#">SSL Certificates</a>
+                </div>
+                <div class="footer-col footer-links">
+                    <h4>Perusahaan</h4>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Kontak</a>
+                    <a href="#">Program Affiliate</a>
+                </div>
+                <div class="footer-col footer-links">
+                    <h4>Support</h4>
+                    <a href="#">Knowledge Base</a>
+                    <a href="#">Report Abuse</a>
+                    <a href="#">Cek Whois</a>
+                    <a href="#">Status Server</a>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Layanan</h4>
-                <a href="#pricing" onclick="openTab(event, 'Domains')">Domain Murah</a>
-                <a href="#pricing" onclick="openTab(event, 'Hosting')">Cloud Hosting</a>
-                <a href="#">Transfer Domain</a>
-            </div>
-            <div class="footer-col">
-                <h4>Bantuan</h4>
-                <a href="#" onclick="alert('Membuka halaman tiket...')">Kirim Tiket</a>
-                <a href="#" onclick="alert('Membuka status server...')">Status Server</a>
-            </div>
-            <div class="footer-col">
-                <h4>Newsletter</h4>
-                <div style="display: flex; gap: 10px;">
-                    <input type="email" placeholder="Email kamu" style="padding: 10px; border-radius: 5px; border: none; width: 100%;">
-                    <button class="btn-primary" style="padding: 10px; border-radius: 5px;" onclick="showToast('Terima kasih telah berlangganan!')"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
+            <div class="text-center" style="border-top: 1px solid #334155; padding-top: 30px; color: #64748b;">
+                <p>&copy; 2025 RifqyDomainCreate. Hak Cipta Dilindungi Undang-Undang.</p>
             </div>
         </div>
-        <p style="text-align: center; border-top: 1px solid #334155; padding-top: 20px;">&copy; 2025 RifqyDomainCreate. Powered by GitHub.</p>
     </footer>
 
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 style="margin-bottom: 20px; color: var(--dark);">Client Login</h2>
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" placeholder="contoh: user@rifqy.id">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" placeholder="********">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="loginAction()">Masuk Dashboard</button>
-            <p style="margin-top: 15px; font-size: 0.9rem;">Belum punya akun? <a href="#" style="color: var(--primary);">Daftar disini</a></p>
-        </div>
-    </div>
-
-    <div id="toast" class="toast">Item ditambahkan ke keranjang!</div>
-
-    <div class="float-chat" onclick="alert('Halo! CS Rifqy siap membantu anda. (Simulasi Chat)')">
-        <i class="fa-solid fa-comments"></i>
-    </div>
-
     <script>
-        // 1. Logic Responsive Menu
+        // 1. Navbar Toggle
         function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
         }
 
-        // 2. Logic Pencarian Domain
-        function checkDomain() {
-            const input = document.getElementById('domainInput').value;
-            const resultBox = document.getElementById('search-result');
-            const loading = document.getElementById('loading');
-            const content = document.getElementById('result-content');
-            const resName = document.getElementById('res-name');
+        // 2. Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(el => el.classList.remove('active'));
 
-            if(input.length < 3) { showToast('Nama domain terlalu pendek!'); return; }
+            // Show target
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active to clicked button (simplifikasi event handling)
+            event.target.classList.add('active');
+        }
 
-            resultBox.style.display = "block";
-            loading.style.display = "block";
-            content.style.display = "none";
+        // 3. Domain Search Logic (FIXED & IMPROVED)
+        function searchDomain() {
+            const input = document.getElementById('domainInput');
+            const resultArea = document.getElementById('search-result-area');
+            const keyword = input.value.trim().toLowerCase().split('.')[0]; // Ambil nama depan saja
+
+            if (keyword.length < 3) {
+                alert("Mohon masukkan minimal 3 karakter!");
+                return;
+            }
+
+            // Simulasi Loading
+            resultArea.style.display = 'block';
+            resultArea.innerHTML = `
+                <div style="text-align:center; padding: 20px; color: white;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem;"></i>
+                    <p style="margin-top:10px;">Mencari ketersediaan untuk <strong>${keyword}</strong>...</p>
+                </div>
+            `;
 
             setTimeout(() => {
-                loading.style.display = "none";
-                content.style.display = "block";
-                resName.innerText = input.includes('.') ? input : input + ".com";
-            }, 1000);
-        }
+                // Generate Hasil (Fixed Logic)
+                const domains = [
+                    { ext: '.com', price: 'Rp 145.000', avail: Math.random() < 0.7 }, // 70% chance available
+                    { ext: '.my.id', price: 'Rp 12.000', avail: true }, // Always available (Promo)
+                    { ext: '.net', price: 'Rp 160.000', avail: true },
+                    { ext: '.id', price: 'Rp 200.000', avail: Math.random() < 0.9 }
+                ];
 
-        // 3. Logic Tabs (Harga)
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "grid";
-            document.getElementById(tabName).classList.add("active");
-            if(evt) evt.currentTarget.className += " active";
-        }
+                let html = '';
+                
+                domains.forEach(d => {
+                    const statusClass = d.avail ? 'text-success' : 'text-danger';
+                    const icon = d.avail ? 'fa-check' : 'fa-xmark';
+                    const btnHtml = d.avail 
+                        ? `<button class="btn btn-primary" onclick="alert('Masuk keranjang!')"><i class="fa-solid fa-cart-plus"></i> Beli</button>`
+                        : `<button class="btn btn-outline" disabled style="opacity:0.5; cursor:not-allowed">Terambil</button>`;
 
-        // 4. Logic Accordion (FAQ)
-        function toggleFaq(element) {
-            element.classList.toggle("active");
-        }
+                    html += `
+                        <div class="result-card">
+                            <div style="display:flex; align-items:center;">
+                                <div style="margin-right:15px; font-size:1.2rem; font-weight:800;">
+                                    ${keyword}${d.ext}
+                                </div>
+                                <span class="tld-badge">${d.ext}</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:20px;">
+                                <div style="text-align:right;">
+                                    <div style="font-weight:bold; color:var(--dark)">${d.price}</div>
+                                    <div style="font-size:0.85rem;" class="${statusClass}"><i class="fa-solid ${icon}"></i> ${d.avail ? 'Tersedia' : 'Tidak Tersedia'}</div>
+                                </div>
+                                ${btnHtml}
+                            </div>
+                        </div>
+                    `;
+                });
 
-        // 5. Logic Modal (Login)
-        function openModal() { document.getElementById('loginModal').style.display = "block"; }
-        function closeModal() { document.getElementById('loginModal').style.display = "none"; }
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('loginModal')) {
-                closeModal();
-            }
-        }
-        function loginAction() {
-            closeModal();
-            showToast("Login Berhasil! Mengalihkan...");
-        }
-
-        // 6. Logic Cart & Toast
-        let cartTotal = 0;
-        function addToCart() {
-            cartTotal++;
-            document.getElementById('cartCount').innerText = cartTotal;
-            document.getElementById('cartCount').style.display = "block";
-            showToast("Sukses masuk keranjang! 🛒");
-        }
-
-        function showToast(message) {
-            var x = document.getElementById("toast");
-            x.innerText = message;
-            x.className = "toast show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                resultArea.innerHTML = html;
+            }, 1500);
         }
     </script>
 </body>
