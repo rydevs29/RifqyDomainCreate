@@ -3,503 +3,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RifqyDomainCreate - Global Domain Registrar & DNS Solutions</title>
+    <title>RifqyDomainCreate - Platform Domain & DNS Tercanggih</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --accent: #0ea5e9;
+            --primary: #4f46e5; /* Indigo */
+            --secondary: #0ea5e9; /* Sky Blue */
             --dark: #0f172a;
             --darker: #020617;
             --light: #f8fafc;
-            --white: #ffffff;
-            --text: #475569;
-            --text-heading: #1e293b;
-            --success: #10b981;
+            --text: #334155;
+            --success: #22c55e;
             --danger: #ef4444;
-            --warning: #f59e0b;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--text); overflow-x: hidden; font-size: 16px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
 
-        /* --- UTILITIES --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .text-center { text-align: center; }
-        .btn { padding: 14px 28px; border-radius: 50px; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        .badge { background: var(--warning); color: var(--darker); padding: 5px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-        /* --- TOP BAR --- */
-        .top-bar { background: var(--darker); color: #94a3b8; font-size: 0.85rem; padding: 8px 0; border-bottom: 1px solid #1e293b; }
-        .top-bar .container { display: flex; justify-content: space-between; }
-        .top-bar a { color: white; text-decoration: none; margin-left: 15px; }
+        /* --- NAVBAR RESPONSIVE --- */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
 
-        /* --- NAVBAR --- */
-        nav { background: rgba(255, 255, 255, 0.98); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.6rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text-heading); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
         .nav-links a:hover { color: var(--primary); }
-        .menu-toggle { display: none; font-size: 1.5rem; color: var(--dark); cursor: pointer; }
+
+        .btn-action {
+            background: var(--dark);
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
 
         /* --- HERO SECTION --- */
-        .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); padding: 100px 0 80px; color: white; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: url('https://www.transparenttextures.com/patterns/cubes.png'); opacity: 0.1; }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
-        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 40px; }
+        .hero {
+            background: linear-gradient(135deg, var(--darker) 0%, #1e1b4b 100%);
+            color: white;
+            padding: 160px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
 
-        /* --- DOMAIN SEARCH BOX (ULTIMATE) --- */
-        .search-box-wrapper { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-        .search-box { background: white; display: flex; border-radius: 15px; overflow: hidden; padding: 5px; }
-        .search-box input { border: none; flex: 1; padding: 15px 25px; font-size: 1.1rem; outline: none; color: var(--dark); font-weight: 600; }
-        .search-box button { border-radius: 10px; padding: 0 40px; font-size: 1.1rem; }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* --- SEARCH RESULTS --- */
-        #search-result-area { max-width: 800px; margin: 20px auto 0; display: none; }
-        .result-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; color: var(--dark); box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: slideUp 0.4s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .tld-badge { background: #e0f2fe; color: var(--primary); padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; margin-right: 10px; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-        /* --- TLD SCROLLER --- */
-        .tld-scroller { display: flex; justify-content: center; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
-        .tld-item { color: rgba(255,255,255,0.6); font-weight: 700; font-size: 1.2rem; }
+        /* Search Box Complex */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-        /* --- FEATURES GRID --- */
-        .section { padding: 80px 0; }
-        .section-title { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-        .section-title span { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin: 10px 0 20px; }
+        .search-box {
+            background: white;
+            padding: 8px;
+            border-radius: 15px;
+            display: flex;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
 
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-box { background: white; padding: 35px; border-radius: 20px; border: 1px solid #e2e8f0; transition: 0.3s; position: relative; overflow: hidden; }
-        .feature-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .feature-icon { width: 60px; height: 60px; background: #eff6ff; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 25px; }
-        .feature-box h3 { font-size: 1.25rem; color: var(--dark); margin-bottom: 15px; }
-        .feature-box p { color: var(--text); line-height: 1.6; font-size: 0.95rem; }
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            color: var(--dark);
+        }
 
-        /* --- PRICING TABS --- */
-        .tabs-container { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9; }
-        .tabs-nav { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; }
-        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: 600; color: #94a3b8; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .search-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box button:hover { background: #4338ca; }
+
+        /* Search Result Animation */
+        #search-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            color: var(--dark);
+            display: none; /* Hidden by default */
+            text-align: left;
+            animation: slideDown 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .domain-name { font-size: 1.5rem; font-weight: 800; }
+        .domain-status { font-weight: bold; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+        .status-avail { background: #dcfce7; color: var(--success); }
+        .status-taken { background: #fee2e2; color: var(--danger); }
+
+        /* --- FEATURES GRID (BANYAK FITUR) --- */
+        .features-section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
+        .section-title span { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-size: 0.9rem; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #e0e7ff;
+            color: var(--primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--dark); }
+        .feature-card p { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- TECH SPECS --- */
+        .specs {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .specs-text { flex: 1; }
+        .specs-code { flex: 1; background: #1e293b; padding: 30px; border-radius: 15px; font-family: monospace; border: 1px solid #334155; }
         
-        .tab-content { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .tab-content.active { display: grid; }
-        
-        .price-col { border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; text-align: center; transition: 0.3s; }
-        .price-col:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .price-col.featured { background: #1e293b; color: white; border: none; transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 10; }
-        .price-col h3 { margin-bottom: 10px; font-size: 1.3rem; }
-        .price-tag { font-size: 2.5rem; font-weight: 800; margin: 20px 0; color: var(--primary); }
-        .price-col.featured .price-tag { color: #38bdf8; }
-        .feature-list { list-style: none; text-align: left; margin: 20px 0; }
-        .feature-list li { margin-bottom: 12px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
-
-        /* --- STATS --- */
-        .stats-section { background: var(--dark); color: white; padding: 60px 0; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
-        .stat-label { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- TECH INFO (SERVER) --- */
-        .tech-info { background: #fff; border-radius: 20px; overflow: hidden; display: flex; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.05); margin-top: 50px; }
-        .tech-text { padding: 50px; flex: 1; }
-        .tech-code { background: #0f172a; padding: 50px; flex: 1; font-family: monospace; color: #38bdf8; display: flex; flex-direction: column; justify-content: center; }
-        .code-line { display: block; margin-bottom: 10px; border-left: 3px solid #334155; padding-left: 15px; }
-        .code-comment { color: #64748b; font-style: italic; }
+        .code-line { display: block; margin-bottom: 10px; color: #94a3b8; }
+        .code-val { color: #38bdf8; }
+        .code-key { color: #c084fc; }
 
         /* --- FOOTER --- */
-        footer { background: var(--darker); color: #cbd5e1; padding: 80px 0 30px; font-size: 0.9rem; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
-        .footer-about p { margin: 20px 0; line-height: 1.6; color: #94a3b8; }
-        .footer-col h4 { color: white; margin-bottom: 25px; font-size: 1.1rem; }
-        .footer-links a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
-        .footer-links a:hover { color: white; padding-left: 5px; }
-        .payment-methods { display: flex; gap: 10px; margin-top: 20px; }
-        .payment-methods i { font-size: 1.5rem; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 968px) {
-            .hero h1 { font-size: 2.5rem; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-            .tech-info { flex-direction: column; }
-            .footer-grid { grid-template-columns: 1fr; }
+        footer {
+            background: var(--darker);
+            color: #94a3b8;
+            padding: 60px 5% 20px;
+            font-size: 0.9rem;
         }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
+        .footer-col a:hover { color: white; }
+
+        /* --- MEDIA QUERIES (RESPONSIVE HP) --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-            .nav-links.active { display: flex; }
+            .hero h1 { font-size: 2.2rem; }
+            
             .menu-toggle { display: block; }
-            .hero h1 { font-size: 2rem; }
-            .search-box { flex-direction: column; padding: 10px; }
-            .search-box input { margin-bottom: 10px; width: 100%; text-align: center; }
-            .search-box button { width: 100%; }
-            .result-card { flex-direction: column; text-align: center; gap: 15px; }
+            .nav-links {
+                position: fixed;
+                background: white;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                flex-direction: column;
+                padding: 40px;
+                transition: 0.4s;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active { right: 0; }
+            
+            .search-box { flex-direction: column; gap: 10px; padding: 15px; }
+            .search-box input { border-radius: 10px; width: 100%; }
+            .search-box button { width: 100%; justify-content: center; }
+            
+            .result-content { flex-direction: column; text-align: center; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="container">
-            <span><i class="fa-solid fa-tag"></i> Promo Spesial: Domain .MY.ID hanya Rp 10.000!</span>
-            <div>
-                <a href="#"><i class="fa-solid fa-headset"></i> Support</a>
-                <a href="#"><i class="fa-solid fa-book"></i> Docs</a>
-            </div>
-        </div>
-    </div>
-
     <nav>
-        <div class="container">
-            <a href="#" class="logo"><i class="fa-solid fa-globe"></i> Rifqy<span>Domain</span></a>
-            <div class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
-            <div class="nav-links" id="navLinks">
-                <a href="#domains">Domain</a>
-                <a href="#hosting">Hosting</a>
-                <a href="#security">Security</a>
-                <a href="#servers">Servers</a>
-                <a href="#" class="btn btn-outline" style="padding: 8px 20px;">Login</a>
-                <a href="#" class="btn btn-primary" style="padding: 8px 20px;">Daftar</a>
-            </div>
+        <div class="logo"><i class="fa-solid fa-globe"></i> RifqyDomainCreate</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navMenu">
+            <a href="#">Beli Domain</a>
+            <a href="#">Transfer</a>
+            <a href="#">Hosting</a>
+            <a href="#">Email Bisnis</a>
+            <a href="#">Keamanan</a>
+            <a href="#" class="btn-action">Login Client</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="container hero-content">
-            <span class="badge">🚀 Ultimate DNS Platform</span>
-            <h1>Nama Adalah Segalanya.<br>Mulai Ide Besarmu Disini.</h1>
-            <p>Platform pendaftaran domain tercanggih dengan integrasi GitHub Pages otomatis, Custom Nameserver, dan Perlindungan Privasi tanpa biaya tambahan.</p>
+        <h1>Nama Domain Sempurna<br>Untuk Ide Gilamu.</h1>
+        <p>Platform pendaftaran domain dengan fitur manajemen DNS tercanggih, Nameserver Kustom, dan integrasi GitHub Pages otomatis.</p>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="domainInput" placeholder="Cari nama domain (contoh: rifqypro.id)...">
+                <button onclick="checkDomain()"><i class="fa-solid fa-magnifying-glass"></i> Cari Domain</button>
+            </div>
 
-            <div class="search-box-wrapper">
-                <div class="search-box">
-                    <input type="text" id="domainInput" placeholder="Ketik nama brand impianmu (cth: rifqytech)...">
-                    <button class="btn btn-primary" onclick="searchDomain()">Cari Domain</button>
+            <div id="search-result">
+                <div id="loading" style="text-align: center; display: none;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+                    <p style="margin-top: 10px;">Mengecek ketersediaan di Registry...</p>
                 </div>
-            </div>
-
-            <div id="search-result-area">
-                </div>
-
-            <div class="tld-scroller">
-                <div class="tld-item">.COM</div>
-                <div class="tld-item">.ID</div>
-                <div class="tld-item">.NET</div>
-                <div class="tld-item">.IO</div>
-                <div class="tld-item">.ORG</div>
-                <div class="tld-item">.TECH</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section">
-        <div class="container stats-grid">
-            <div>
-                <div class="stat-number">15K+</div>
-                <div class="stat-label">Domain Terdaftar</div>
-            </div>
-            <div>
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">Server Uptime</div>
-            </div>
-            <div>
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support Expert</div>
-            </div>
-            <div>
-                <div class="stat-number">12</div>
-                <div class="stat-label">Lokasi DNS</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="domains">
-        <div class="container">
-            <div class="section-title">
-                <span>Harga Transparan</span>
-                <h2>Pilih Paket Sesuai Kebutuhan</h2>
-                <p>Tanpa biaya tersembunyi. Apa yang Anda lihat adalah yang Anda bayar.</p>
-            </div>
-
-            <div class="tabs-container">
-                <div class="tabs-nav">
-                    <button class="tab-btn active" onclick="switchTab('tab-domain')">Domain</button>
-                    <button class="tab-btn" onclick="switchTab('tab-hosting')">Cloud Hosting</button>
-                    <button class="tab-btn" onclick="switchTab('tab-security')">Keamanan SSL</button>
-                </div>
-
-                <div id="tab-domain" class="tab-content active">
-                    <div class="price-col">
-                        <h3>Personal ID</h3>
-                        <div class="price-tag">Rp 12rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check text-success"></i> Ekstensi <strong>.my.id</strong></li>
-                            <li><i class="fa-solid fa-check text-success"></i> DNS Management</li>
-                            <li><i class="fa-solid fa-check text-success"></i> GitHub Pages Connect</li>
-                        </ul>
-                        <button class="btn btn-outline" style="width:100%">Daftar Sekarang</button>
-                    </div>
-                    <div class="price-col featured">
-                        <div class="badge" style="margin-bottom:15px; display:inline-block;">POPULER</div>
-                        <h3>Global Biz</h3>
-                        <div class="price-tag">Rp 145rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check text-info"></i> Ekstensi <strong>.com</strong></li>
-                            <li><i class="fa-solid fa-check text-info"></i> Whois Privacy GRATIS</li>
-                            <li><i class="fa-solid fa-check text-info"></i> Premium DNS</li>
-                        </ul>
-                        <button class="btn btn-primary" style="width:100%">Daftar Sekarang</button>
-                    </div>
-                    <div class="price-col">
-                        <h3>Startup Tech</h3>
-                        <div class="price-tag">Rp 550rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check text-success"></i> Ekstensi <strong>.io</strong> / <strong>.ai</strong></li>
-                            <li><i class="fa-solid fa-check text-success"></i> Priority Support</li>
-                            <li><i class="fa-solid fa-check text-success"></i> Domain Lock</li>
-                        </ul>
-                        <button class="btn btn-outline" style="width:100%">Daftar Sekarang</button>
-                    </div>
-                </div>
-
-                <div id="tab-hosting" class="tab-content">
-                    <div class="price-col">
-                        <h3>GitHub Pages</h3>
-                        <div class="price-tag">GRATIS</div>
-                        <p>Kami bantu setup DNS record Anda ke repository GitHub secara gratis dan otomatis.</p>
-                        <button class="btn btn-outline" style="margin-top:20px;">Lihat Tutorial</button>
-                    </div>
-                    <div class="price-col">
-                        <h3>Cloud VPS Starter</h3>
-                        <div class="price-tag">Rp 65rb<span style="font-size:1rem;color:#94a3b8">/bln</span></div>
-                        <p>1 Core CPU, 2GB RAM, 40GB NVMe SSD. Lokasi Jakarta.</p>
-                        <button class="btn btn-primary" style="margin-top:20px;">Deploy VPS</button>
-                    </div>
-                </div>
-
-                 <div id="tab-security" class="tab-content">
-                    <div class="price-col">
-                        <h3>Let's Encrypt SSL</h3>
-                        <div class="price-tag">GRATIS</div>
-                        <p>Sertifikat SSL standar untuk keamanan website Anda. Auto-renewal.</p>
-                        <button class="btn btn-outline" style="margin-top:20px;">Aktifkan</button>
-                    </div>
-                    <div class="price-col">
-                        <h3>Comodo PositiveSSL</h3>
-                        <div class="price-tag">Rp 120rb<span style="font-size:1rem;color:#94a3b8">/thn</span></div>
-                        <p>Jaminan keamanan lebih tinggi dengan garansi hingga $10,000.</p>
-                        <button class="btn btn-primary" style="margin-top:20px;">Beli SSL</button>
+                
+                <div id="result-content" style="display: none;">
+                    <div class="result-content">
+                        <div>
+                            <div class="domain-name" id="res-name">domain.com</div>
+                            <small id="res-msg">Selamat! Domain ini tersedia.</small>
+                        </div>
+                        <div style="text-align: right;" id="price-action">
+                            <h3 style="color: var(--primary); font-size: 1.5rem;">Rp 125.000<span style="font-size: 0.9rem; color:#666">/thn</span></h3>
+                            <button class="btn-action" style="margin-top: 5px;">Daftar Sekarang</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; color: #94a3b8;">
+            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> Free Whois Privacy</span>
+            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> DNS Management</span>
+            <span><i class="fa-solid fa-check" style="color: var(--success)"></i> 24/7 Support</span>
+        </div>
     </section>
 
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-title">
-                <span>Kenapa RifqyDomainCreate?</span>
-                <h2>Fitur Ultimate untuk Developer</h2>
+    <section class="features-section">
+        <div class="section-title">
+            <span>Power Features</span>
+            <h2>Semua yang Anda Butuhkan</h2>
+            <p>Kami tidak sekadar menjual nama. Kami memberikan kontrol penuh.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-server"></i></div>
+                <h3>Custom Nameserver</h3>
+                <p>Gunakan branding sendiri dengan <code>ns1.rifqydev.my.id</code> untuk terlihat lebih profesional di mata klien.</p>
             </div>
-            
-            <div class="feature-grid">
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-                    <h3>Propagasi Kilat</h3>
-                    <p>DNS kami menggunakan anycast network global, memastikan domain Anda bisa diakses dari seluruh dunia dalam hitungan menit.</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-brands fa-github"></i></div>
-                    <h3>GitHub Integration</h3>
-                    <p>Satu-satunya provider dengan tombol "One-Click Deploy" untuk menghubungkan domain ke GitHub Pages tanpa ribet edit DNS manual.</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
-                    <h3>Whois Privacy</h3>
-                    <p>Data pribadi Anda aman. Kami mengganti info kontak publik domain Anda dengan data proxy kami untuk mencegah spam.</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
-                    <h3>Domain Lock</h3>
-                    <p>Kunci domain Anda dari upaya transfer ilegal. Keamanan tingkat tinggi untuk aset digital berharga Anda.</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-                    <h3>Email Forwarding</h3>
-                    <p>Buat alamat email profesional (admin@bisnis.com) dan teruskan semua pesan masuk ke Gmail pribadi Anda.</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-icon"><i class="fa-solid fa-code-branch"></i></div>
-                    <h3>API Access</h3>
-                    <p>Kontrol domain Anda secara programatik. Cocok untuk reseller atau developer yang ingin otomasi sistem.</p>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-brands fa-github"></i></div>
+                <h3>GitHub Pages Ready</h3>
+                <p>Satu klik konfigurasi A Record untuk menyambungkan domain ke repository GitHub Pages Anda.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Whois Privacy Protection</h3>
+                <p>Sembunyikan nama, alamat, dan email pribadi Anda dari database publik WHOIS. Gratis selamanya.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Fast DNS Propagation</h3>
+                <p>Server DNS kami tersebar di 12 negara, menjamin propagasi domain di bawah 30 menit.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-lock"></i></div>
+                <h3>Domain Lock</h3>
+                <p>Kunci domain Anda untuk mencegah transfer ilegal atau pembajakan oleh pihak tidak bertanggung jawab.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-shuffle"></i></div>
+                <h3>URL Forwarding</h3>
+                <p>Arahkan domain lama ke domain baru, atau ke link sosial media Anda dengan mudah (301/302 Redirection).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-envelope"></i></div>
+                <h3>Email Forwarding</h3>
+                <p>Buat <code>admin@domainmu.com</code> dan teruskan pesan masuknya ke Gmail pribadi Anda.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+                <h3>Full DNS Control</h3>
+                <p>Akses penuh ke A, CNAME, MX, TXT, SRV, dan AAAA Records melalui panel kontrol RifqyDev.</p>
             </div>
         </div>
     </section>
 
-    <section class="section" id="servers">
-        <div class="container">
-            <div class="tech-info">
-                <div class="tech-text">
-                    <span class="badge">Infrastruktur</span>
-                    <h2 style="margin: 20px 0; color: var(--dark); font-size: 2rem;">Nameserver Kustom Enterprise</h2>
-                    <p style="color: #64748b; line-height: 1.7; margin-bottom: 30px;">
-                        Gunakan nameserver branding "RifqyDev" untuk meningkatkan kepercayaan klien Anda. Ditenagai oleh Cloudflare Network, menjamin anti-DDoS dan kecepatan akses maksimal.
-                    </p>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check-circle text-success"></i> Support A, AAAA, CNAME, MX, TXT, SRV</li>
-                        <li><i class="fa-solid fa-check-circle text-success"></i> TTL Rendah (Update Cepat)</li>
-                        <li><i class="fa-solid fa-check-circle text-success"></i> IPv6 Ready</li>
-                    </ul>
-                </div>
-                <div class="tech-code">
-                    <span class="code-comment">// Konfigurasi Nameserver Default</span>
-                    <span class="code-line">Primary NS: <span style="color:white">ns1.rifqydev.my.id</span></span>
-                    <span class="code-line">Secondary NS: <span style="color:white">ns2.rifqydev.my.id</span></span>
-                    <br>
-                    <span class="code-comment">// GitHub Pages A Records (Auto)</span>
-                    <span class="code-line">@ 185.199.108.153</span>
-                    <span class="code-line">@ 185.199.109.153</span>
-                    <span class="code-line">@ 185.199.110.153</span>
-                    <span class="code-line">@ 185.199.111.153</span>
-                </div>
-            </div>
+    <section class="specs">
+        <div class="specs-text">
+            <h2>Konfigurasi Nameserver Otomatis</h2>
+            <p style="color: #94a3b8; margin-top: 15px; line-height: 1.8;">
+                Jangan pusing dengan pengaturan teknis. Saat Anda membeli domain di RifqyDomainCreate, sistem kami otomatis menyiapkan Zone File yang optimal. Anda hanya perlu memilih target: Cloudflare, GitHub, atau Shared Hosting.
+            </p>
+            <ul style="margin-top: 20px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 10px;"><i class="fa-solid fa-check-circle" style="color: var(--primary)"></i> 99.9% Uptime Guarantee</li>
+                <li style="margin-bottom: 10px;"><i class="fa-solid fa-check-circle" style="color: var(--primary)"></i> DDoS Protection by Cloudflare</li>
+            </ul>
+        </div>
+        <div class="specs-code">
+            <span class="code-line"><span class="code-key">Primary NS:</span> <span class="code-val">ns1.rifqydev.my.id</span></span>
+            <span class="code-line"><span class="code-key">Secondary NS:</span> <span class="code-val">ns2.rifqydev.my.id</span></span>
+            <span class="code-line"><span class="code-key">TTL:</span> <span class="code-val">3600 (1 Hour)</span></span>
+            <span class="code-line"><span class="code-key">SOA:</span> <span class="code-val">hostmaster.rifqydev.my.id</span></span>
+            <br>
+            <span class="code-line" style="color: #64748b">// Auto-Configured for GitHub Pages</span>
+            <span class="code-line"><span class="code-key">A Record (@):</span> <span class="code-val">185.199.108.153</span></span>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <a href="#" class="logo" style="color:white"><i class="fa-solid fa-globe"></i> Rifqy<span>Domain</span></a>
-                    <p>Bagian dari ekosistem RifqyDevs. Kami menyediakan infrastruktur web yang andal, aman, dan terjangkau untuk kreator Indonesia.</p>
-                    <div class="payment-methods">
-                        <i class="fa-brands fa-cc-visa"></i>
-                        <i class="fa-brands fa-cc-mastercard"></i>
-                        <i class="fa-brands fa-cc-paypal"></i>
-                        <i class="fa-solid fa-money-bill-wave"></i>
-                    </div>
-                </div>
-                <div class="footer-col footer-links">
-                    <h4>Produk</h4>
-                    <a href="#">Beli Domain</a>
-                    <a href="#">Transfer Domain</a>
-                    <a href="#">Cloud Hosting</a>
-                    <a href="#">Email Bisnis</a>
-                    <a href="#">SSL Certificates</a>
-                </div>
-                <div class="footer-col footer-links">
-                    <h4>Perusahaan</h4>
-                    <a href="#">Tentang Kami</a>
-                    <a href="#">Karir</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Kontak</a>
-                    <a href="#">Program Affiliate</a>
-                </div>
-                <div class="footer-col footer-links">
-                    <h4>Support</h4>
-                    <a href="#">Knowledge Base</a>
-                    <a href="#">Report Abuse</a>
-                    <a href="#">Cek Whois</a>
-                    <a href="#">Status Server</a>
-                </div>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>RifqyDomainCreate</h4>
+                <p>Bagian dari ekosistem RifqyDevs. Menyediakan solusi infrastruktur web sejak 2024.</p>
             </div>
-            <div class="text-center" style="border-top: 1px solid #334155; padding-top: 30px; color: #64748b;">
-                <p>&copy; 2025 RifqyDomainCreate. Hak Cipta Dilindungi Undang-Undang.</p>
+            <div class="footer-col">
+                <h4>Produk</h4>
+                <ul>
+                    <li><a href="#">Domain Registration</a></li>
+                    <li><a href="#">Cloud Hosting</a></li>
+                    <li><a href="#">SSL Certificates</a></li>
+                    <li><a href="#">Website Builder</a></li>
+                </ul>
             </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Pusat Bantuan</a></li>
+                    <li><a href="#">Status Server</a></li>
+                    <li><a href="#">Report Abuse</a></li>
+                    <li><a href="#">Kontak Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid #334155; padding-top: 20px;">
+            <p>&copy; 2025 RifqyDomainCreate. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Navbar Toggle
+        // 1. Logic Burger Menu (HP)
         function toggleMenu() {
-            const nav = document.getElementById('navLinks');
+            const nav = document.getElementById('navMenu');
             nav.classList.toggle('active');
         }
 
-        // 2. Tab Switching Logic
-        function switchTab(tabId) {
-            // Hide all contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.remove('active'));
+        // 2. Logic Pencarian Domain (Simulasi)
+        function checkDomain() {
+            const input = document.getElementById('domainInput').value;
+            const resultBox = document.getElementById('search-result');
+            const loading = document.getElementById('loading');
+            const content = document.getElementById('result-content');
             
-            // Remove active class from all buttons
-            const btns = document.querySelectorAll('.tab-btn');
-            btns.forEach(el => el.classList.remove('active'));
+            // Nama Domain Output
+            const resName = document.getElementById('res-name');
+            const resMsg = document.getElementById('res-msg');
+            const resStatus = document.getElementById('price-action');
 
-            // Show target
-            document.getElementById(tabId).classList.add('active');
-            
-            // Add active to clicked button (simplifikasi event handling)
-            event.target.classList.add('active');
-        }
-
-        // 3. Domain Search Logic (FIXED & IMPROVED)
-        function searchDomain() {
-            const input = document.getElementById('domainInput');
-            const resultArea = document.getElementById('search-result-area');
-            const keyword = input.value.trim().toLowerCase().split('.')[0]; // Ambil nama depan saja
-
-            if (keyword.length < 3) {
-                alert("Mohon masukkan minimal 3 karakter!");
+            if(input.length < 3) {
+                alert("Masukkan nama domain minimal 3 karakter!");
                 return;
             }
 
-            // Simulasi Loading
-            resultArea.style.display = 'block';
-            resultArea.innerHTML = `
-                <div style="text-align:center; padding: 20px; color: white;">
-                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem;"></i>
-                    <p style="margin-top:10px;">Mencari ketersediaan untuk <strong>${keyword}</strong>...</p>
-                </div>
-            `;
+            // Reset tampilan
+            resultBox.style.display = "block";
+            loading.style.display = "block";
+            content.style.display = "none";
 
+            // Simulasi Loading 1.5 detik
             setTimeout(() => {
-                // Generate Hasil (Fixed Logic)
-                const domains = [
-                    { ext: '.com', price: 'Rp 145.000', avail: Math.random() < 0.7 }, // 70% chance available
-                    { ext: '.my.id', price: 'Rp 12.000', avail: true }, // Always available (Promo)
-                    { ext: '.net', price: 'Rp 160.000', avail: true },
-                    { ext: '.id', price: 'Rp 200.000', avail: Math.random() < 0.9 }
-                ];
-
-                let html = '';
+                loading.style.display = "none";
+                content.style.display = "block";
                 
-                domains.forEach(d => {
-                    const statusClass = d.avail ? 'text-success' : 'text-danger';
-                    const icon = d.avail ? 'fa-check' : 'fa-xmark';
-                    const btnHtml = d.avail 
-                        ? `<button class="btn btn-primary" onclick="alert('Masuk keranjang!')"><i class="fa-solid fa-cart-plus"></i> Beli</button>`
-                        : `<button class="btn btn-outline" disabled style="opacity:0.5; cursor:not-allowed">Terambil</button>`;
+                // Set Data Simulasi
+                resName.innerText = input.includes('.') ? input : input + ".com";
+                
+                // Random Logic untuk Demo (Biar seru)
+                // 80% Tersedia, 20% Tidak
+                const isAvailable = Math.random() < 0.8; 
 
-                    html += `
-                        <div class="result-card">
-                            <div style="display:flex; align-items:center;">
-                                <div style="margin-right:15px; font-size:1.2rem; font-weight:800;">
-                                    ${keyword}${d.ext}
-                                </div>
-                                <span class="tld-badge">${d.ext}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:20px;">
-                                <div style="text-align:right;">
-                                    <div style="font-weight:bold; color:var(--dark)">${d.price}</div>
-                                    <div style="font-size:0.85rem;" class="${statusClass}"><i class="fa-solid ${icon}"></i> ${d.avail ? 'Tersedia' : 'Tidak Tersedia'}</div>
-                                </div>
-                                ${btnHtml}
-                            </div>
-                        </div>
+                if(isAvailable) {
+                    resMsg.innerHTML = '<span class="domain-status status-avail"><i class="fa-solid fa-check"></i> Tersedia</span>';
+                    resMsg.style.color = "var(--success)";
+                    resStatus.innerHTML = `
+                        <h3 style="color: var(--primary); font-size: 1.5rem;">Rp 125.000<span style="font-size: 0.9rem; color:#666">/thn</span></h3>
+                        <button class="btn-action" style="margin-top: 5px;">Daftar Sekarang</button>
                     `;
-                });
+                } else {
+                    resMsg.innerHTML = '<span class="domain-status status-taken"><i class="fa-solid fa-xmark"></i> Sudah Milik Orang Lain</span>';
+                    resStatus.innerHTML = `
+                        <button class="btn-action" style="background: #cbd5e1; color: #64748b !important; cursor: not-allowed;">Tidak Tersedia</button>
+                        <div style="margin-top:5px; font-size:0.8rem;"><a href="#">Coba Whois Lookup?</a></div>
+                    `;
+                }
 
-                resultArea.innerHTML = html;
             }, 1500);
         }
     </script>
